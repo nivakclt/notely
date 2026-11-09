@@ -15,6 +15,11 @@ const nextConfig: NextConfig = {
       },
     },
   },
+  // images:{
+  //   remotePatterns:[
+  //     {hostname:'chatgpt.com'}
+  //   ]
+  // }
 };
 
 export default nextConfig;
