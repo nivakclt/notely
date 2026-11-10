@@ -2,6 +2,8 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 export default function Register() {
   const [user, setUser] = useState({
@@ -10,9 +12,33 @@ export default function Register() {
     password: "",
   });
 
-  const handleRegister = (e: React.FormEvent<HTMLFormElement>) => {
+  const router = useRouter()
+
+  const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(user);
+    const{name,email,password}=user
+    if(!name || !email || !password){
+      toast.error("Enter Valid Inputs")
+    }else{
+      const response = await fetch("/api/register",{
+        method:"POST",
+        body:JSON.stringify(user)
+      })
+      console.log(response)
+      const res = await response.json()
+      console.log(res)
+      if(response.status===201){
+        toast.success("Registration Success")
+        router.push('/login')
+      }
+      else{
+        toast.error("Registration Failed!!")
+      }
+      setUser({
+        name:"",email:"",password:""
+      })
+
+    }
   };
 
   return (
