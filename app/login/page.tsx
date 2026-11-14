@@ -50,7 +50,7 @@ export default function Login() {
         </div>
 
         {/* Login Form */}
-        <form action="" onSubmit={(e)=>handleSubmit} className="space-y-5">
+        <form action="" onSubmit={handleSubmit} className="space-y-5">
 
           <div>
             <label className="mb-2 block text-sm font-semibold text-gray-700">
