@@ -15,29 +15,35 @@ export default function Register() {
   const router = useRouter()
 
   const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  e.preventDefault();
+    console.log(user)
     const{name,email,password}=user
+
     if(!name || !email || !password){
       toast.error("Enter Valid Inputs")
-    }else{
+    }
+    else{
       const response = await fetch("/api/register",{
         method:"POST",
         body:JSON.stringify(user)
       })
       console.log(response)
+
       const res = await response.json()
       console.log(res)
+
       if(response.status===201){
         toast.success("Registration Success")
-        router.push('/login')
+        router.push('/login') 
+
+        setUser({
+        name:"",email:"",password:""
+      })
+      
       }
       else{
         toast.error("Registration Failed!!")
       }
-      setUser({
-        name:"",email:"",password:""
-      })
-
     }
   };
 
@@ -117,7 +123,6 @@ export default function Register() {
             Sign In
           </Link>
         </p>
-
       </div>
     </main>
   );
