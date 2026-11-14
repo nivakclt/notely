@@ -8,8 +8,8 @@ import users from "@/models/userModel";
 const handler = NextAuth({
   providers: [
     CredentialsProvider({
-      name: "Credentials",
-      credentials: {
+      name: 'Credentials',
+      credentials: {},
         async authorize(credentials:any) {
         await connectDB();
         const user = await users.findOne({
@@ -28,14 +28,15 @@ const handler = NextAuth({
           email: user.email,
         };
       },
-      },
     }),
   ],
-  session: {
-    strategy: "jwt",
+  pages:{
+    signIn:'/login'
   },
-
-  secret: process.env.NEXTAUTH_SECRET,
+  session: {
+    strategy: 'jwt',
+  },
+    secret: process.env.NEXTJS_JWTSECRET,
 });
 
 export { handler as GET, handler as POST };
