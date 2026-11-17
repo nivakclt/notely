@@ -52,22 +52,41 @@ export default function Home() {
         </div>
 
         {/* RIGHT IMAGE */}
-        <div className="relative z-10 mx-auto w-full max-w-2xl">
-          <div className="absolute inset-8 rounded-[40px] bg-amber-200/30 blur-3xl" />
 
-          <div className="relative aspect-square w-full overflow-hidden rounded-[32px] border border-white/80 bg-white/50 p-4 shadow-[0_20px_70px_rgba(120,100,50,0.10)] backdrop-blur-2xl transition-transform duration-500 hover:-translate-y-2">
-            <div className="relative h-full w-full overflow-hidden rounded-[24px]">
-              <Image
-                src="/l4.jpg"
-                alt="Notely note-taking illustration"
-                fill
-                priority
-                sizes="(max-width: 768px) 100vw, 50vw"
-                className="object-contain"
-              />
-            </div>
-          </div>
-        </div>
+<div className="relative z-10 mx-auto w-full max-w-xl">
+
+  {/* Ambient glow */}
+  <div className="absolute -inset-8 rounded-full bg-amber-200/30 blur-[80px]" />
+
+  {/* Main image frame */}
+  <div className="group relative overflow-hidden rounded-[32px] border border-white/80 bg-white/60 p-3 shadow-[0_30px_90px_rgba(120,90,40,0.12)] backdrop-blur-xl transition-all duration-700 hover:-translate-y-2 hover:shadow-[0_40px_100px_rgba(120,90,40,0.18)]">
+
+    {/* Image container */}
+    <div className="relative aspect-[5/4] w-full overflow-hidden rounded-[24px] bg-gradient-to-br from-amber-50 via-white to-yellow-50">
+
+      <Image
+        src="/l4.jpg"
+        alt="Notely note-taking illustration"
+        fill
+        priority
+        sizes="(max-width: 768px) 100vw, 50vw"
+        className="object-contain p-3 transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+      />
+
+      {/* Subtle overlay */}
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-amber-100/10 via-transparent to-white/20" />
+    </div>
+
+    {/* Bottom accent */}
+    <div className="absolute bottom-3 left-1/2 h-1 w-16 -translate-x-1/2 rounded-full bg-amber-300/70 opacity-70" />
+
+  </div>
+
+  {/* Decorative floating glow */}
+  <div className="absolute -right-4 top-12 h-20 w-20 rounded-full bg-yellow-200/40 blur-2xl" />
+  <div className="absolute -bottom-6 -left-5 h-24 w-24 rounded-full bg-orange-200/30 blur-2xl" />
+
+</div>
       </div>
     </main>
   );

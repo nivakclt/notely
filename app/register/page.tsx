@@ -52,9 +52,7 @@ export default function Register() {
 
             {/* Background decoration */}
             <div className="fixed -top-40 -left-40 w-[500px] h-[500px] rounded-full bg-amber-100/60 blur-[120px] pointer-events-none" />
-
             <div className="fixed top-1/3 -right-40 w-[500px] h-[500px] rounded-full bg-violet-100/60 blur-[130px] pointer-events-none" />
-
             <div className="fixed -bottom-40 left-1/3 w-[450px] h-[450px] rounded-full bg-yellow-100/50 blur-[120px] pointer-events-none" />
 
             {/* Register Card */}
@@ -72,14 +70,6 @@ export default function Register() {
 
                 {/* Heading */}
                 <div className="mb-8 text-center">
-
-                    <div className="inline-flex items-center gap-2 rounded-full border border-amber-200/70 bg-amber-50/70 px-4 py-2 mb-5">
-                        <span className="w-2 h-2 rounded-full bg-amber-400" />
-                        <span className="text-xs font-bold uppercase tracking-[2px] text-amber-800">
-                            Get started
-                        </span>
-                    </div>
-
                     <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-[#39372F]">
                         Create Account<span className="text-amber-400">.</span>
                     </h1>

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import SmoothScroll from "@/components/SmoothScroll";
 import  { Toaster } from "react-hot-toast";
 import Provider from "./Provider";
 
@@ -27,7 +28,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body className="min-h-screen flex flex-col">
         <Provider>
+          <SmoothScroll>
         {children}
+        </SmoothScroll>
         </Provider>
          <Toaster position="top-center" />
       </body>

@@ -92,16 +92,10 @@ export default function Notes() {
                             </span>
                         </div>
 
-                        <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-[#39372F]">
-                            My Notes<span className="text-amber-400">.</span>
-                        </h1>
-
                         <p className="mt-3 text-sm sm:text-base text-stone-500">
                             A little place for all your thoughts and ideas.
                         </p>
                     </div>
-
-
 
                 </section>
                 {/* Notes Grid */}

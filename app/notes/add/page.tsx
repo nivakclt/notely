@@ -22,9 +22,6 @@ export default function AddNote() {
                 <div className="flex justify-between items-start mb-8">
 
                     <div>
-                        <span className="text-xs font-bold uppercase tracking-[3px] text-amber-700">
-                            Your creative space
-                        </span>
 
                         <h1 className="text-3xl font-extrabold text-[#39372F] mt-3">
                             Add Note<span className="text-amber-400">.</span>
