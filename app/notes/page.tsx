@@ -2,7 +2,6 @@
 
 import { signOut, useSession } from "next-auth/react"
 import {
-    FaEdit,
     FaUser,
     FaPowerOff,
     FaTrash,
@@ -12,11 +11,29 @@ import {
 import { CiCalendar } from "react-icons/ci"
 import { redirect } from "next/navigation"
 import Link from "next/link"
+import { useEffect } from "react"
+import { useState } from "react"
 
 export default function Notes() {
 
-    const { session } = useSession()
+    const session  = useSession()
     console.log(session)
+
+    const [notes,setNotes]=useState([])
+
+    const getNotes = async()=>{
+        const response=await fetch('/api/notes')
+        if(response.status === 200){
+            const result = await response.json()
+            console.log(result)
+            setNotes(result.filter((note:any)=>note.userMail == session?.data?.user?.email))
+        }
+    }
+
+    useEffect(()=>{
+        getNotes()
+    },[])
+
     if(session?.status === "unauthenticated"){
                redirect("/login")
     }
