@@ -10,22 +10,18 @@ import {
     FaRegStickyNote
 } from "react-icons/fa"
 import { CiCalendar } from "react-icons/ci"
-import { useRouter } from "next/navigation"
-import { useEffect } from "react"
+import { redirect } from "next/navigation"
 import Link from "next/link"
 
 export default function Notes() {
 
-    const { data: session, status } = useSession()
-    const router = useRouter()
+    const { session } = useSession()
+    console.log(session)
+    if(session?.status === "unauthenticated"){
+               redirect("/login")
+    }
 
-    useEffect(() => {
-        if (status === "unauthenticated") {
-            router.replace("/login")
-        }
-    }, [status, router])
-
-    if (status === "loading") {
+    if (session?.status === "loading") {
         return (
             <div className="min-h-screen flex items-center justify-center bg-[#f8f7f2]">
                 <p className="text-amber-600 font-medium animate-pulse">
@@ -34,8 +30,6 @@ export default function Notes() {
             </div>
         )
     }
-
-    if (!session) return null
 
     return (
         <main className="relative min-h-screen overflow-hidden bg-[#F7F6F1] text-[#39372F]">
@@ -65,7 +59,7 @@ export default function Notes() {
 
                             <div className="hidden sm:block">
                                 <p className="text-sm font-bold text-[#39372F]">
-                                    {session?.user?.name}
+                                    {session?.data?.user?.name}
                                 </p>
                             </div>
                         </div>

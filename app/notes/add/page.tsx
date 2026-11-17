@@ -1,15 +1,42 @@
+"use client"
+
+import { useSession } from "next-auth/react"
+import { Inote } from "@/models/noteModel"
+import { redirect } from "next/navigation"
+import { useState } from "react"
+import toast from "react-hot-toast"
+
 import Link from "next/link"
 import { FaX } from "react-icons/fa6"
+import { MdDescription } from "react-icons/md"
 
 export default function AddNote() {
+
+    const session = useSession()
+    const [noteDetails,setNoteDetails] =useState({
+        title:"",description:"",color:"",userMail:session?.data?.user?.email
+        })
+           if(session?.status === "unauthenticated"){
+           redirect("/login")
+        }
+        if(session?.status === "loading"){
+
+        }
+
+     const handleSubmit = async () =>{
+        console.log(noteDetails)
+        const(title,description,color,userMail)=noteDetails
+        if(!title || !description ||!color ||!userMail){
+            toast.success
+        }
+     }
+
     return (
-        <main className="relative w-full min-h-screen flex justify-center items-center overflow-hidden bg-[#F7F6F1] p-5 text-[#39372F]">
+        <main className="relative w-full min-h-screen flex justify-center items-center overflow-hidden bg-[#F7F6F1] p-3 text-[#39372F]">
 
             {/* Background decoration */}
             <div className="fixed -top-40 -left-40 w-[500px] h-[500px] rounded-full bg-amber-100/60 blur-[120px] pointer-events-none" />
-
             <div className="fixed top-1/3 -right-40 w-[500px] h-[500px] rounded-full bg-violet-100/60 blur-[130px] pointer-events-none" />
-
             <div className="fixed -bottom-40 left-1/3 w-[450px] h-[450px] rounded-full bg-yellow-100/50 blur-[120px] pointer-events-none" />
 
             {/* Add Note Card */}
@@ -56,13 +83,41 @@ export default function AddNote() {
 
                         <div className="flex items-center gap-3">
 
-                            <span className="w-7 h-7 border-2 border-white bg-pink-200 rounded-full cursor-pointer hover:scale-110 transition shadow-sm"></span>
+                            <span
+                            onClick={() => setNoteDetails({
+                                ...noteDetails, color: "yellow"
+                            })}
+                            className={`px-2 border-2 bg-yellow-200 rounded-full cursor-pointer ${
+                                noteDetails.color === "yellow" ? "ring-2 ring-yellow-500" : ""
+                            }`}
+                        />
 
-                            <span className="w-7 h-7 border-2 border-white bg-yellow-200 rounded-full cursor-pointer hover:scale-110 transition shadow-sm"></span>
+                           <span
+                            onClick={() => setNoteDetails({
+                                ...noteDetails, color: "sky"
+                            })}
+                            className={`px-2 border-2 bg-sky-200 rounded-full cursor-pointer ${
+                                noteDetails.color === "sky" ? "ring-2 ring-sky-500" : ""
+                            }`}
+                        />
 
-                            <span className="w-7 h-7 border-2 border-white bg-green-200 rounded-full cursor-pointer hover:scale-110 transition shadow-sm"></span>
+<span
+                            onClick={() => setNoteDetails({
+                                ...noteDetails, color: "green"
+                            })}
+                            className={`px-2 border-2 bg-green-200 rounded-full cursor-pointer ${
+                                noteDetails.color === "green" ? "ring-2 ring-green-500" : ""
+                            }`}
+                        />
 
-                            <span className="w-7 h-7 border-2 border-white bg-blue-200 rounded-full cursor-pointer hover:scale-110 transition shadow-sm"></span>
+                            <span
+                            onClick={() => setNoteDetails({
+                                ...noteDetails, color: "green"
+                            })}
+                            className={`px-2 border-2 bg-green-200 rounded-full cursor-pointer ${
+                                noteDetails.color === "green" ? "ring-2 ring-green-500" : ""
+                            }`}
+                        />
 
                         </div>
 
@@ -75,11 +130,14 @@ export default function AddNote() {
                             Title
                         </label>
 
-                        <input
-                            type="text"
-                            placeholder="Give your note a title..."
-                            className="w-full bg-white/55 p-3.5 rounded-xl outline-none border border-[#E8D78F]/70 text-sm text-[#49412B] placeholder:text-[#A5966C] focus:border-amber-500 focus:bg-white/80 focus:ring-4 focus:ring-amber-100/60 transition-all duration-300"
-                        />
+                         <input
+                        type="text"
+                        onChange={(e) => setNoteDetails({
+                            ...noteDetails,
+                            title: e.target.value
+                        })}
+                    />
+
 
                     </div>
 
@@ -91,12 +149,12 @@ export default function AddNote() {
                         </label>
 
                         <textarea
-                            name=""
-                            id=""
-                            rows={6}
-                            placeholder="Write down your thoughts..."
-                            className="w-full bg-white/55 p-3.5 rounded-xl outline-none border border-[#E8D78F]/70 resize-none text-sm leading-7 text-[#49412B] placeholder:text-[#A5966C] focus:border-amber-500 focus:bg-white/80 focus:ring-4 focus:ring-amber-100/60 transition-all duration-300"
-                        ></textarea>
+                        name="description"
+                        onChange={(e) => setNoteDetails({
+                            ...noteDetails,
+                            description: e.target.value
+                        })}
+                    />
 
                     </div>
 

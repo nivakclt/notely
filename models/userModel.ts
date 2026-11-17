@@ -1,5 +1,6 @@
 import mongoose from "mongoose"
 
+// we need too give type so interface created
 export interface Iuser{
     name: string,
     email: string,
