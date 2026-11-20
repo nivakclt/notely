@@ -1,183 +1,189 @@
 "use client"
 
-import { useSession } from "next-auth/react"
-import { useState } from "react"
-import { redirect } from "next/navigation"
-import toast from "react-hot-toast"
-import { FaX } from "react-icons/fa6"
+import Link from "next/link"
+import { IoIosClose } from "react-icons/io";
+import { useState } from "react";
+import { Inote } from "@/models/noteModel";
+import { useSession } from "next-auth/react";
+import { redirect } from "next/navigation";
+import toast from "react-hot-toast";
 
-export default function AddNote() {
+export default function Add() {
 
     const session = useSession()
-    const [noteDetails,setNoteDetails] =useState({
-        title:"",description:"",color:"",userMail:session?.data?.user?.email||""
-        })
 
-        if(session?.status === "unauthenticated"){
-           redirect("/login")
-        }
-        if(session?.status === "loading"){
-            return (
-            <div className="min-h-screen flex items-center justify-center bg-[#f8f7f2]">
-                <p className="text-amber-600 font-medium animate-pulse">
+    const [noteDetails, setNoteDetails] = useState({
+        title: "", description: "", color: "", userMail: session?.data?.user?.email
+    })
+
+    if (session?.status === "unauthenticated") {
+        redirect('/login')
+    }
+
+if (session?.status === "loading") {
+    return (
+        <div className="flex min-h-screen items-center justify-center bg-[#F7F6F1]">
+            <div className="text-center">
+                <div className="mx-auto mb-5 h-10 w-10 animate-spin rounded-full border-4 border-amber-200 border-t-amber-500" />
+
+                <p className="text-xl font-extrabold tracking-tight text-[#39372F]">
+                    notely<span className="text-amber-500">.</span>
+                </p>
+
+                <p className="mt-2 text-sm text-stone-400">
                     Loading your notes...
                 </p>
             </div>
-        )
-        }
+        </div>
+    )
+}
 
-    const handleReset = () =>{
+
+    const handleReset = () => {
         setNoteDetails({
-                    title:"",description:"",color:"",userMail:session?.data?.user?.email
-                })
+            title: "", description: "", color: "", userMail: session?.data?.user?.email
+        })
     }
 
-     const handleSubmit = async () =>{
+    const handleSubmit = async () => {
         console.log(noteDetails)
-        const{title,description,color,userMail}=noteDetails
-        if(!title || !description ||!color ||!userMail){
-            toast.error("Enter Valid Inputs!!")
-            return
+        const { title, description, color, userMail } = noteDetails
+        if (!title || !description || !color || !userMail) {
+            toast.error("Enter Valid inputs!!")
         }
-        else{
-            const response = await fetch('/api/notes',{
-                method:'POST',
-                body:JSON.stringify(noteDetails)
+        else {
+            const response = await fetch('/api/notes', {
+                method: "POST",
+                body: JSON.stringify(noteDetails)
             })
-            if(response.status === 201){
-                toast.success('Note Aadded Successfully!')
+            if (response.status === 201) {
+                toast.success("Note Added!!")
                 handleReset()
                 redirect('/notes')
             }
-            else{
-                toast.error("Adding Note Failed !")
-
+            else {
+                toast.error("Adding Note Failed!!")
+                handleReset()
             }
         }
-     }
+    }
 
     return (
-        <main className="relative w-full min-h-screen flex justify-center items-center overflow-hidden bg-[#F7F6F1] p-3 text-[#39372F]">
+        <>
+            <div className="relative flex min-h-screen w-full items-center justify-center overflow-hidden bg-[#F7F6F1] px-4 py-10">
 
-            {/* Background decoration */}
-            <div className="fixed -top-40 -left-40 w-[500px] h-[500px] rounded-full bg-amber-100/60 blur-[120px] pointer-events-none" />
-            <div className="fixed top-1/3 -right-40 w-[500px] h-[500px] rounded-full bg-violet-100/60 blur-[130px] pointer-events-none" />
-            <div className="fixed -bottom-40 left-1/3 w-[450px] h-[450px] rounded-full bg-yellow-100/50 blur-[120px] pointer-events-none" />
-
-            {/* Add Note Card */}
-            <div className="relative z-10 w-full max-w-lg rounded-[28px] border border-white/80 bg-white/65 backdrop-blur-2xl p-6 sm:p-9 shadow-[0_20px_60px_rgba(70,60,30,0.09)]">
-
-                {/* Top accent */}
-                <div className="absolute top-0 left-10 right-10 h-[3px] rounded-b-full bg-gradient-to-r from-amber-200 via-amber-400 to-yellow-200" />
-
-                {/* Heading */}
-                <div className="flex justify-between items-start mb-8">
-
-                    <div>
-
-                        <h1 className="text-3xl font-extrabold text-[#39372F] mt-3">
-                            Add Note<span className="text-amber-400">.</span>
-                        </h1>
-
-                        <p className="text-sm text-stone-500 mt-2">
-                            Capture a thought before it disappears.
-                        </p>
-                    </div>
-
-                    <button onClick={()=>{
-                        handleReset()
-                        redirect('/notes')
-                    }}
-                        className="w-10 h-10 rounded-xl border border-stone-200 bg-white/70 flex items-center justify-center text-stone-500 hover:bg-red-500 hover:text-white hover:border-red-500 transition-all duration-300">
-                        <FaX className="text-sm" />
-                    </button>
-
+                {/* AMBIENT BACKGROUND */}
+                <div className="pointer-events-none fixed inset-0 overflow-hidden">
+                    <div className="absolute -left-32 -top-32 h-96 w-96 rounded-full bg-amber-100/60 blur-[120px]" />
+                    <div className="absolute -right-32 top-20 h-96 w-96 rounded-full bg-violet-100/60 blur-[130px]" />
+                    <div className="absolute -bottom-40 left-1/3 h-96 w-96 rounded-full bg-yellow-100/50 blur-[120px]" />
                 </div>
 
-                {/* Sticky Note Form */}
-<div className={`relative ${noteDetails.color === "sky" ? "bg-sky-100" : noteDetails.color === "green" ? "bg-green-100" : noteDetails.color === "orange" ? "bg-orange-100" : "bg-[#FFF2B8]"} rounded-[5px_5px_16px_5px] p-6 sm:p-7 shadow-[4px_7px_0px_rgba(180,150,65,0.13),8px_15px_30px_rgba(90,75,35,0.12)]`}>
-                    {/* Folded corner */}
-                    <div className="absolute top-0 right-0 w-8 h-8 bg-[#E9D68D] opacity-60 [clip-path:polygon(0_0,100%_100%,100%_0)]" />
+                {/* ADD NOTE CARD */}
+                <div className="relative z-10 w-full max-w-xl overflow-hidden rounded-[28px] border border-white/80 bg-white/65 p-6 shadow-[0_20px_70px_rgba(120,100,50,0.10)] backdrop-blur-2xl transition-all duration-300 sm:p-9">
 
-                    {/* Themes */}
-                    <div className="flex justify-between items-center mb-7">
+                    {/* TOP ACCENT */}
+                    <div className="absolute left-10 right-10 top-0 h-[3px] rounded-b-full bg-gradient-to-r from-amber-200 via-amber-400 to-yellow-200" />
 
-                        <span className="text-sm font-bold text-[#554B32]">
-                            Choose a theme
-                        </span>
+                    {/* HEADER */}
+                    <div className="mb-7 mt-2 flex items-center justify-between">
+                        <div>
+                            <h1 className="text-3xl font-extrabold tracking-tight text-[#39372F]">
+                                Add Note<span className="text-amber-500">.</span>
+                            </h1>
+                            <p className="mt-2 text-sm text-stone-400">
+                                Write down something worth remembering.
+                            </p>
+                        </div>
+                    </div>
 
-                        <div className="flex items-center gap-3">
+                    {/* ACTION BUTTONS */}
+                    <div className="mb-7 flex items-center justify-between">
+                        <button
+                            onClick={()=>{
+                                handleReset()
+                                redirect('/notes')   
+                            }}
+                            className="flex h-10 w-10 items-center justify-center rounded-xl border border-amber-200/70 bg-[#FFF2B8] text-2xl text-[#746747] transition-all duration-300 hover:bg-amber-300 hover:text-[#39372F]"
+                        >
+                            <IoIosClose />
+                        </button>
 
-                            <span
-                            onClick={() => {setNoteDetails({...noteDetails, color: "yellow"})}}
-                             className={noteDetails.color == 'yellow'
-        ? "inline-block w-5 h-5 border-2 bg-yellow-300 rounded-full"
-        : "inline-block w-5 h-5 border bg-yellow-300 rounded-full"}/>
+                        <button
+                            onClick={handleSubmit}
+                            className="rounded-xl bg-[#39372F] px-7 py-2.5 text-sm font-semibold text-white shadow-md shadow-stone-900/10 transition-all duration-300 hover:-translate-y-0.5 hover:bg-amber-500 hover:text-[#39372F] active:scale-[0.98]"
+                        >
+                            Save
+                        </button>
+                    </div>
 
-                           <span
-                            onClick={() => {setNoteDetails({...noteDetails, color: "sky"})}}
-                             className={noteDetails.color == 'sky'
-        ? "inline-block w-5 h-5 border-2 bg-sky-300 rounded-full"
-        : "inline-block w-5 h-5 border bg-sky-300 rounded-full"} />
+                    {/* THEME SELECTION */}
+                    <div className="mb-7 rounded-2xl border border-amber-100/80 bg-[#FBFAF5] p-4">
+                        <div className="flex flex-wrap items-center justify-between gap-4">
+                            <span className="text-sm font-semibold text-[#746747]">
+                                Themes:
+                            </span>
 
-                            <span onClick={() => {setNoteDetails({...noteDetails, color: "green"})}}
- className={noteDetails.color == 'green'
-        ? "inline-block w-5 h-5 border-2 bg-green-300 rounded-full"
-        : "inline-block w-5 h-5 border bg-green-300 rounded-full"}
-                        />
+                            <div className="flex items-center gap-4">
 
-                            <span
-                            onClick={() => {setNoteDetails({...noteDetails, color: "orange"})}}
- className={noteDetails.color == 'orange'
-        ? "inline-block w-5 h-5 border-2 bg-orange-300 rounded-full"
-        : "inline-block w-5 h-5 border bg-orange-300 rounded-full"}
-                        />
+                                <span
+                                    onClick={() => { setNoteDetails({ ...noteDetails, color: "pink" }) }}
+                                    className={noteDetails.color == "pink" ? "h-8 w-8 cursor-pointer rounded-full border-[3px] border-[#39372F] bg-pink-200 shadow-md ring-2 ring-pink-100 transition-all" : "h-8 w-8 cursor-pointer rounded-full border border-pink-300 bg-pink-200 transition-all hover:scale-110"}
+                                ></span>
 
+                                <span
+                                    onClick={() => { setNoteDetails({ ...noteDetails, color: "yellow" }) }}
+                                    className={noteDetails.color == "yellow" ? "h-8 w-8 cursor-pointer rounded-full border-[3px] border-[#39372F] bg-yellow-200 shadow-md ring-2 ring-yellow-100 transition-all" : "h-8 w-8 cursor-pointer rounded-full border border-yellow-300 bg-yellow-200 transition-all hover:scale-110"}
+                                ></span>
+
+                                <span
+                                    onClick={() => { setNoteDetails({ ...noteDetails, color: "sky" }) }}
+                                    className={noteDetails.color == "sky" ? "h-8 w-8 cursor-pointer rounded-full border-[3px] border-[#39372F] bg-sky-200 shadow-md ring-2 ring-sky-100 transition-all" : "h-8 w-8 cursor-pointer rounded-full border border-sky-300 bg-sky-200 transition-all hover:scale-110"}
+                                ></span>
+
+                                <span
+                                    onClick={() => { setNoteDetails({ ...noteDetails, color: "green" }) }}
+                                    className={noteDetails.color == "green" ? "h-8 w-8 cursor-pointer rounded-full border-[3px] border-[#39372F] bg-green-200 shadow-md ring-2 ring-green-100 transition-all" : "h-8 w-8 cursor-pointer rounded-full border border-green-300 bg-green-200 transition-all hover:scale-110"}
+                                ></span>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* NOTE INPUTS */}
+                    <div className="space-y-5">
+
+                        <div>
+                            <label className="mb-2 block text-sm font-bold text-[#746747]">
+                                Title:
+                            </label>
+
+                            <input
+                                type="text"
+                                value={noteDetails.title}
+                                onChange={(e) => { setNoteDetails({ ...noteDetails, title: e.target.value }) }}
+                                className="w-full rounded-xl border border-[#EAE5D8] bg-white/70 px-4 py-3.5 text-sm text-[#39372F] outline-none transition-all duration-300 placeholder:text-stone-400 focus:border-amber-400 focus:bg-white focus:ring-4 focus:ring-amber-100/70"
+                            />
+                        </div>
+
+                        <div>
+                            <label className="mb-2 block text-sm font-bold text-[#746747]">
+                                Description:
+                            </label>
+
+                            <textarea
+                                name=""
+                                value={noteDetails.description}
+                                onChange={(e) => { setNoteDetails({ ...noteDetails, description: e.target.value }) }}
+                                id=""
+                                className="min-h-[180px] w-full resize-y rounded-xl border border-[#EAE5D8] bg-white/70 px-4 py-3.5 text-sm leading-6 text-[#39372F] outline-none transition-all duration-300 placeholder:text-stone-400 focus:border-amber-400 focus:bg-white focus:ring-4 focus:ring-amber-100/70"
+                            ></textarea>
                         </div>
 
                     </div>
 
-                    {/* Title */}
-                    <div className="space-y-2 mb-6">
-
-                        <label className="block text-sm font-bold text-[#554B32]">
-                            Title
-                        </label>
-
-                         <input
-                            className="w-full px-4 py-3 rounded-xl bg-white/60 border border-amber-200/70 outline-none text-[#39372F] placeholder:text-stone-400 focus:border-amber-400 focus:ring-2 focus:ring-amber-200/50 transition-all"
-                         value={noteDetails.title}
-                        type="text"
-                        onChange={(e) => setNoteDetails({...noteDetails,title: e.target.value})}/>
-                    </div>
-
-                    {/* Description */}
-                    <div className="space-y-2">
-
-                        <label className="block text-sm font-bold text-[#554B32]">
-                            Description
-                        </label>
-
-                        <textarea
-                        value={noteDetails.description}
-                        name="description"
-                            className="w-full px-4 py-3 rounded-xl bg-white/60 border border-amber-200/70 outline-none text-[#39372F] placeholder:text-stone-400 focus:border-amber-400 focus:ring-2 focus:ring-amber-200/50 transition-all resize-none"
-                        onChange={(e) => setNoteDetails({...noteDetails,description: e.target.value})} />
-
-                    </div>
-
-                    {/* Save Button */}
-                    <div className="flex justify-end mt-6">
-
-                        <button onClick={handleSubmit} className="bg-[#39372F] text-white px-7 py-3 rounded-xl text-sm font-bold shadow-lg shadow-stone-400/20 hover:bg-amber-500 hover:text-[#39372F] hover:-translate-y-1 transition-all duration-300">
-                            Save Note →
-                        </button>
-
-                    </div>
-
                 </div>
             </div>
-
-        </main>
+        </>
     )
 }

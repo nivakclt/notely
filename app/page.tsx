@@ -41,7 +41,7 @@ export default function Home() {
           <div className="mt-9 flex flex-wrap items-center gap-5">
             <Link
               href="/login"
-              className="group inline-flex items-center gap-3 rounded-full bg-[#39372F] px-9 py-4 text-lg font-semibold text-white shadow-xl shadow-stone-900/10 transition-all duration-300 hover:-translate-y-1 hover:bg-amber-500 hover:text-[#39372F] hover:shadow-amber-200/60"
+              className="group inline-flex items-center gap-3 rounded-full bg-amber-500 px-9 py-4 text-lg font-semibold text-white shadow-xl shadow-stone-900/10 transition-all duration-300 hover:-translate-y-1 hover:bg-amber-500 hover:text-[#39372F] hover:shadow-amber-200/60"
             >
               Start Now
               <span className="transition-transform duration-300 group-hover:translate-x-1">
