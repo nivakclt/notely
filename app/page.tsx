@@ -1,93 +1,345 @@
-
 import Image from "next/image";
 import Link from "next/link";
 
 export default function Home() {
   return (
-    <main className="relative min-h-screen overflow-hidden bg-[#F7F6F1] text-[#39372F]">
-      {/* AMBIENT BACKGROUND */}
-      <div className="pointer-events-none fixed inset-0 overflow-hidden">
-        <div className="absolute -left-32 -top-32 h-96 w-96 rounded-full bg-amber-100/60 blur-[120px]" />
-        <div className="absolute -right-32 top-20 h-96 w-96 rounded-full bg-violet-100/60 blur-[130px]" />
-        <div className="absolute -bottom-40 left-1/3 h-96 w-96 rounded-full bg-yellow-100/50 blur-[120px]" />
+    <main className="notely-page relative min-h-screen overflow-hidden text-[#39352D]">
+
+      {/* FLOATING DOODLES */}
+      <div className="doodle-layer pointer-events-none fixed inset-0 z-0 overflow-hidden" aria-hidden="true">
+        <span className="doodle absolute left-[7%] top-[13%]">✳</span>
+        <span className="doodle-reverse absolute right-[9%] top-[15%]">✿</span>
+        <span className="doodle absolute left-[4%] top-[48%]">✧</span>
+        <span className="doodle-slow absolute bottom-[10%] right-[15%]">✦</span>
+        <span className="doodle-reverse absolute right-[38%] top-[35%]">·</span>
       </div>
 
-      <div className="relative mx-auto grid min-h-screen max-w-7xl grid-cols-1 items-center gap-12 px-6 py-16 md:grid-cols-2 lg:px-12">
+      {/* PAPER BACKGROUND */}
+      <div className="paper-grain pointer-events-none fixed inset-0 z-0" />
 
-        {/* LEFT CONTENT */}
+      {/* NAVIGATION */}
+      <nav className="sticky top-0 z-50 border-b border-[#ded5c2]/60 bg-[#F7F4EA]/90 backdrop-blur-md">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5 lg:px-12">
+
+          <Link href="/" className="brand-logo">
+            notely<span>.</span>
+          </Link>
+
+          <div className="hidden items-center gap-8 text-[13px] font-semibold tracking-wide text-stone-600 md:flex">
+            <a href="#home" className="nav-link">Home</a>
+            <a href="#about" className="nav-link">About</a>
+            <a href="#features" className="nav-link">Features</a>
+            <a href="#testimonials" className="nav-link">Stories</a>
+            <a href="#contact" className="nav-link">Contact</a>
+          </div>
+
+        </div>
+      </nav>
+
+      {/* HERO */}
+      <section id="home" className="relative z-10 mx-auto grid min-h-[88vh] max-w-7xl items-center gap-16 px-6 py-20 md:grid-cols-2 lg:px-12">
+
         <div className="relative z-10">
-          <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-white/80 bg-white/65 px-4 py-2 text-sm font-medium text-amber-700 shadow-sm backdrop-blur-xl">
-            <span className="h-2 w-2 rounded-full bg-amber-400" />
+          <div className="mb-8 inline-flex items-center gap-3 border-b border-[#d8cba9] pb-3 text-xs font-bold uppercase tracking-[0.22em] text-[#9c7a39]">
+            <span className="h-2 w-2 rounded-full bg-[#c99c4d]" />
             A little space for big ideas
           </div>
 
-          <h1 className="max-w-2xl text-5xl font-extrabold leading-[1.1] tracking-tight sm:text-6xl lg:text-7xl">
-            Notely
-            <span className="text-amber-500">.</span>
+          <h1 className="hero-heading max-w-2xl text-6xl font-extrabold leading-[1.04] tracking-[-0.055em] sm:text-7xl lg:text-[88px]">
+            Notely<span className="text-[#c59a4e]">.</span>
             <br />
             Your Thoughts,
             <br />
-            <span className="bg-gradient-to-r from-amber-600 via-amber-500 to-yellow-300 bg-clip-text text-transparent">
-              Organized.
-            </span>
+            <span className="hero-serif">Organized.</span>
           </h1>
 
-          <p className="mt-7 max-w-lg text-lg leading-8 text-stone-500">
+          <p className="mt-8 max-w-lg text-base leading-8 text-[#817967] sm:text-lg">
             Capture your thoughts, organize your ideas, and keep
             everything important in one place. Notely makes
             note-taking simple, seamless, and effortless.
           </p>
 
-          <div className="mt-9 flex flex-wrap items-center gap-5">
-            <Link
-              href="/login"
-              className="group inline-flex items-center gap-3 rounded-full bg-amber-500 px-9 py-4 text-lg font-semibold text-white shadow-xl shadow-stone-900/10 transition-all duration-300 hover:-translate-y-1 hover:bg-amber-500 hover:text-[#39372F] hover:shadow-amber-200/60"
-            >
-              Start Now
-              <span className="transition-transform duration-300 group-hover:translate-x-1">
-                →
-              </span>
+          <div className="mt-10 flex items-center gap-2 rounded-4xl">
+            <Link href="/login" className="primary-paper-button">
+              Start Now <span>→</span>
             </Link>
           </div>
         </div>
 
-        {/* RIGHT IMAGE */}
+        {/* HERO IMAGE */}
+        <div className="relative z-10 mx-auto w-full max-w-xl">
 
-<div className="relative z-10 mx-auto w-full max-w-xl">
+          <div className="hero-orbit absolute -inset-8 rounded-full" />
 
-  {/* Ambient glow */}
-  <div className="absolute -inset-8 rounded-full bg-amber-200/30 blur-[80px]" />
+          <div className="hero-paper-frame">
+            <div className="relative aspect-[5/4] w-full overflow-hidden bg-[#eee5d2]">
+              <Image
+                src="/l4.jpg"
+                alt="Notely note-taking illustration"
+                fill
+                priority
+                sizes="(max-width: 768px) 100vw, 50vw"
+                className="object-contain p-3 transition-transform duration-700 hover:scale-[1.04]"
+              />
+            </div>
 
-  {/* Main image frame */}
-  <div className="group relative overflow-hidden rounded-[32px] border border-white/80 bg-white/60 p-3 shadow-[0_30px_90px_rgba(120,90,40,0.12)] backdrop-blur-xl transition-all duration-700 hover:-translate-y-2 hover:shadow-[0_40px_100px_rgba(120,90,40,0.18)]">
+            <div className="hero-paper-label">
+              <span>01 / YOUR LITTLE WORKSPACE</span>
+              <span>NOTELY STUDIO</span>
+            </div>
+          </div>
 
-    {/* Image container */}
-    <div className="relative aspect-[5/4] w-full overflow-hidden rounded-[24px] bg-gradient-to-br from-amber-50 via-white to-yellow-50">
+          {/* FLOATING PAPER OBJECTS */}
+          <div className="floating-paper paper-note-one">
+            <span>little things</span>
+            <strong>matter.</strong>
+            <span className="paper-scribble">〰</span>
+          </div>
 
-      <Image
-        src="/l4.jpg"
-        alt="Notely note-taking illustration"
-        fill
-        priority
-        sizes="(max-width: 768px) 100vw, 50vw"
-        className="object-contain p-3 transition-transform duration-700 ease-out group-hover:scale-[1.04]"
-      />
+          <div className="floating-paper paper-note-two">
+            <span className="paper-star">✳</span>
+            <span>one thought</span>
+            <span>at a time.</span>
+          </div>
 
-      {/* Subtle overlay */}
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-amber-100/10 via-transparent to-white/20" />
-    </div>
+          <div className="floating-paper paper-clip">⌁</div>
 
-    {/* Bottom accent */}
-    <div className="absolute bottom-3 left-1/2 h-1 w-16 -translate-x-1/2 rounded-full bg-amber-300/70 opacity-70" />
+        </div>
+      </section>
 
-  </div>
+      {/* ABOUT */}
+      <section id="about" className="relative z-10 scroll-mt-24 px-6 py-28 lg:px-12">
+        <div className="mx-auto grid max-w-7xl items-center gap-20 md:grid-cols-2">
 
-  {/* Decorative floating glow */}
-  <div className="absolute -right-4 top-12 h-20 w-20 rounded-full bg-yellow-200/40 blur-2xl" />
-  <div className="absolute -bottom-6 -left-5 h-24 w-24 rounded-full bg-orange-200/30 blur-2xl" />
+          <div className="about-art">
+            <div className="about-back-sheet" />
 
-</div>
-      </div>
+            <div className="about-main-sheet">
+              <span className="text-xs font-bold uppercase tracking-[0.2em] text-[#a1844c]">
+                A note to yourself
+              </span>
+
+              <h3 className="about-handwriting mt-12">
+                Make space
+                <br />
+                for the things
+                <br />
+                that matter.
+              </h3>
+
+              <div className="mt-12 h-px w-24 bg-[#d8c59b]" />
+
+              <p className="mt-5 text-xs tracking-widest text-[#a79a80]">
+                YOUR THOUGHTS BELONG HERE
+              </p>
+
+              <span className="absolute bottom-8 right-9 text-3xl text-[#c69d57]">✳</span>
+            </div>
+
+            <div className="about-paper-shadow" />
+            <span className="about-decoration">✦</span>
+          </div>
+
+          <div>
+
+            <h2 className="section-heading">
+              A little space
+              <br />
+              for <span>every thought.</span>
+            </h2>
+
+            <p className="mt-8 max-w-lg text-base leading-8 text-[#817967]">
+              Notely is a simple and organized note-taking application
+              designed to help you capture your everyday thoughts,
+              ideas, reminders and important information.
+            </p>
+
+            <p className="mt-5 max-w-lg text-base leading-8 text-[#817967]">
+              Create notes, update them whenever you want, and keep
+              everything in one place with a clean and comfortable
+              experience.
+            </p>
+          </div>
+
+        </div>
+      </section>
+
+      {/* FEATURES */}
+      <section id="features" className="relative z-10 scroll-mt-24 px-6 py-28 lg:px-12">
+        <div className="mx-auto max-w-7xl">
+
+          <div className="mb-20 max-w-2xl">
+
+            <h2 className="section-heading">
+              Simple tools.
+              <br />
+              <span>Clearer thoughts.</span>
+            </h2>
+
+            <p className="mt-6 max-w-lg leading-8 text-[#817967]">
+              Everything you need to keep your thoughts together,
+              without making things complicated.
+            </p>
+          </div>
+
+          <div className="grid gap-12 md:grid-cols-3">
+
+            {/* FEATURE 1 */}
+            <div className="feature-item">
+              <div className="feature-art feature-yellow">
+                <div className="mini-notebook">
+                  <div className="notebook-binding" />
+                  <div className="notebook-lines">
+                    <span />
+                    <span />
+                    <span />
+                    <span />
+                  </div>
+                  <span className="notebook-pencil">✎</span>
+                </div>
+                <span className="feature-art-star">✳</span>
+              </div>
+
+              <span className="feature-number">01 / WRITE</span>
+              <h3>Create Notes</h3>
+              <p>
+                Quickly write down your thoughts, ideas and important
+                reminders whenever inspiration strikes.
+              </p>
+            </div>
+
+            {/* FEATURE 2 */}
+            <div className="feature-item">
+              <div className="feature-art feature-pink">
+                <div className="edit-sheet">
+                  <span className="edit-sheet-line" />
+                  <span className="edit-sheet-line short" />
+                  <span className="edit-sheet-line" />
+                  <div className="edit-pencil">✎</div>
+                </div>
+                <span className="feature-art-star">♡</span>
+              </div>
+
+              <span className="feature-number">02 / REFINE</span>
+              <h3>Edit Anytime</h3>
+              <p>
+                Update your notes whenever your ideas change.
+                Keep your information fresh and useful.
+              </p>
+            </div>
+
+            {/* FEATURE 3 */}
+            <div className="feature-item">
+              <div className="feature-art feature-green">
+                <div className="stacked-paper">
+                  <div className="stack-sheet stack-back" />
+                  <div className="stack-sheet stack-middle" />
+                  <div className="stack-sheet stack-front">
+                    <span>IDEAS</span>
+                    <span>THOUGHTS</span>
+                    <span>REMINDERS</span>
+                  </div>
+                </div>
+                <span className="feature-art-star">✦</span>
+              </div>
+
+              <span className="feature-number">03 / ORGANIZE</span>
+              <h3>Stay Organized</h3>
+              <p>
+                Keep your notes together in one place and make
+                your everyday information easier to manage.
+              </p>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* TESTIMONIALS */}
+      <section id="testimonials" className="relative z-10 scroll-mt-24 px-6 py-28 lg:px-12">
+        <div className="mx-auto max-w-7xl">
+
+          <div className="mb-16 text-center">
+            <h2 className="section-heading">
+              Words from the
+              <br />
+              <span>other side of the page.</span>
+            </h2>
+          </div>
+
+          <div className="grid gap-10 md:grid-cols-3">
+
+            <article className="quote-paper quote-yellow">
+              <span className="quote-mark">“</span>
+              <p>
+                A simple and lovely place to keep all my daily
+                thoughts and reminders organized.
+              </p>
+              <div className="quote-author">
+                <span className="quote-avatar">A</span>
+                <div>
+                  <strong>Ananya</strong>
+                  <small>Sample testimonial</small>
+                </div>
+              </div>
+            </article>
+
+            <article className="quote-paper quote-white">
+              <span className="quote-mark">“</span>
+              <p>
+                I love the clean design. It makes writing and
+                managing my notes feel effortless.
+              </p>
+              <div className="quote-author">
+                <span className="quote-avatar avatar-pink">R</span>
+                <div>
+                  <strong>Rahul</strong>
+                  <small>Sample testimonial</small>
+                </div>
+              </div>
+            </article>
+
+            <article className="quote-paper quote-lavender">
+              <span className="quote-mark">“</span>
+              <p>
+                Finally, a comfortable place to collect my ideas
+                without making things complicated.
+              </p>
+              <div className="quote-author">
+                <span className="quote-avatar avatar-purple">M</span>
+                <div>
+                  <strong>Meera</strong>
+                  <small>Sample testimonial</small>
+                </div>
+              </div>
+            </article>
+
+          </div>
+        </div>
+      </section>
+
+      {/* FOOTER */}
+      <footer className="relative z-10 border-t border-[#ded5c2] bg-[#eee9dc] px-6 py-6 lg:px-12">
+        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-8 sm:flex-row">
+
+          <div>
+            <Link href="/" className="brand-logo">
+              notely<span>.</span>
+            </Link>
+            <p className="mt-2 text-xs text-[#918774]">
+              A little space for big ideas.
+            </p>
+          </div>
+
+          
+
+          <p className="text-xs text-[#a49a86]">
+            © Notely. All rights reserved.
+          </p>
+
+        </div>
+      </footer>
+
     </main>
   );
 }

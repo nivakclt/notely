@@ -17,6 +17,7 @@ export default function Register() {
     const handleRegister = async () => {
         console.log(user)
         const { name, email, password } = user
+
         if (!name || !email || !password) {
             toast.error("Enter Valid Inputs!!")
         }
@@ -28,113 +29,270 @@ export default function Register() {
             console.log(response)
             const res = await response.json()
             console.log(res)
-            if (response.status === 201) {
 
+            if (response.status === 201) {
                 toast.success("Registration Successfull!!")
                 router.push('/login')
             }
             else {
                 toast.error("Registration Failed!!")
             }
+
             setUser({
-                name:"",email:"",password:""
+                name: "", email: "", password: ""
             })
         }
     }
 
     return (
-        <>
-            <div className="relative flex min-h-screen w-full items-center justify-center overflow-hidden bg-[#F7F6F1] px-4 py-12">
+        <main className="notely-login relative min-h-screen overflow-hidden">
 
-                {/* AMBIENT BACKGROUND */}
-                <div className="pointer-events-none fixed inset-0 overflow-hidden">
-                    <div className="absolute -left-32 -top-32 h-96 w-96 rounded-full bg-amber-100/60 blur-[120px]" />
-                    <div className="absolute -right-32 top-20 h-96 w-96 rounded-full bg-violet-100/60 blur-[130px]" />
-                    <div className="absolute -bottom-40 left-1/3 h-96 w-96 rounded-full bg-yellow-100/50 blur-[120px]" />
-                </div>
+            {/* BACKGROUND */}
+            <div className="login-background absolute inset-0" />
+            <div className="login-grain absolute inset-0 pointer-events-none" />
 
-                {/* REGISTER CARD */}
-                <div className="relative z-10 w-full max-w-md overflow-hidden rounded-[28px] border border-white/80 bg-white/65 p-7 shadow-[0_20px_70px_rgba(120,100,50,0.10)] backdrop-blur-2xl transition-all duration-300 sm:p-10">
+            <div className="relative z-10 mx-auto grid min-h-screen max-w-[1440px] items-center gap-8 px-5 py-10 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16 lg:px-16">
 
-                    {/* TOP ACCENT */}
-                    <div className="absolute left-10 right-10 top-0 h-[3px] rounded-b-full bg-gradient-to-r from-amber-200 via-amber-400 to-yellow-200" />
+                {/* LEFT: STATIONERY SCENE */}
+                <section className="login-showcase relative mx-auto w-full max-w-[650px]">
 
-                    {/* HEADING */}
-                    <div className="mb-9 mt-3 text-center">
-                        <Link href="/" className="inline-block text-2xl font-extrabold tracking-tight text-[#39372F]">
-                            notely<span className="text-amber-500">.</span>
-                        </Link>
+                    <Link href="/" className="login-brand inline-block">
+                        notely<span>.</span>
+                    </Link>
 
-                        <h1 className="mt-7 text-3xl font-extrabold tracking-tight text-[#39372F] sm:text-4xl">
-                            Create Account<span className="text-amber-500">.</span>
+                    <div className="mt-8">
+                        <p className="login-eyebrow">A FRESH PAGE BEGINS HERE</p>
+
+                        <h1 className="login-display mt-4">
+                            Make room
+                            <br />
+                            for your
+                            <br />
+                            <span>next idea.</span>
                         </h1>
 
-                        <p className="mt-3 text-sm leading-6 text-stone-400">
-                            Create your little space for thoughts and ideas.
+                        <p className="mt-5 max-w-md text-sm leading-7 text-[#837763]">
+                            Start your own little collection of thoughts,
+                            plans and possibilities. Every great idea
+                            starts somewhere.
                         </p>
                     </div>
 
-                    {/* INPUT FIELDS */}
-                    <div>
+                    {/* STATIONERY DESK */}
+                    <div className="stationery-scene relative mx-auto mt-8">
 
-                        <div className="mb-5 w-full">
-                            <input
-                                type="text"
-                                onChange={(e) => { setUser({ ...user, name: e.target.value }) }}
-                                placeholder="Name"
-                                className="w-full rounded-xl border border-[#EAE5D8] bg-white/70 px-4 py-4 text-sm text-[#39372F] placeholder:text-stone-400 outline-none transition-all duration-300 focus:border-amber-400 focus:bg-white focus:ring-4 focus:ring-amber-100/70"
-                            />
-                        </div>
+                        <div className="desk-back-paper" />
 
-                        <div className="mb-5 w-full">
-                            <input
-                                type="email"
-                                onChange={(e) => { setUser({ ...user, email: e.target.value }) }}
-                                placeholder="Email"
-                                className="w-full rounded-xl border border-[#EAE5D8] bg-white/70 px-4 py-4 text-sm text-[#39372F] placeholder:text-stone-400 outline-none transition-all duration-300 focus:border-amber-400 focus:bg-white focus:ring-4 focus:ring-amber-100/70"
-                            />
-                        </div>
+                        {/* OPEN NOTEBOOK */}
+                        <div className="desk-notebook">
+                            <div className="notebook-spine" />
 
-                        <div className="mb-7 w-full">
-                            <input
-                                type="password"
-                                onChange={(e) => { setUser({ ...user, password: e.target.value }) }}
-                                placeholder="Password"
-                                className="w-full rounded-xl border border-[#EAE5D8] bg-white/70 px-4 py-4 text-sm text-[#39372F] placeholder:text-stone-400 outline-none transition-all duration-300 focus:border-amber-400 focus:bg-white focus:ring-4 focus:ring-amber-100/70"
-                            />
-                     </div>
-                                {/* ACTION BUTTONS */}
-                                <div className="flex flex-col gap-5">
+                            <div className="notebook-page notebook-left-page">
+                                <span className="notebook-small-title">A NEW CHAPTER</span>
 
-                                    <button
-                                        onClick={handleRegister}
-                                        className="w-full rounded-xl bg-[#39372F] p-3.5 text-sm font-semibold text-white shadow-md shadow-stone-900/10 transition-all duration-300 hover:-translate-y-0.5 hover:bg-amber-500 hover:text-[#39372F] hover:shadow-amber-200/50 active:scale-[0.98]"
-                                    >
-                                        Register
-                                    </button>
+                                <h3>
+                                    Start with
+                                    <br />
+                                    a little idea...
+                                </h3>
 
-                                    <p className="text-center text-sm text-stone-500">
-                                        Already a user?{" "}
-                                        <Link
-                                            href="/login"
-                                            className="font-semibold text-amber-600 transition-colors hover:text-amber-700 hover:underline"
-                                        >
-                                            Login here
-                                        </Link>
-                                    </p>
-
+                                <div className="notebook-writing">
+                                    <span />
+                                    <span />
+                                    <span />
+                                    <span />
                                 </div>
+
+                                <span className="notebook-page-number">01</span>
+                            </div>
+
+                            <div className="notebook-page notebook-right-page">
+                                <span className="notebook-small-title">YOUR OWN SPACE</span>
+
+                                <p className="notebook-script">
+                                    Dream it.
+                                    <br />
+                                    Write it.
+                                    <br />
+                                    Remember it.
+                                </p>
+
+                                <div className="notebook-flower">✳</div>
+
+                                <span className="notebook-page-number">02</span>
+                            </div>
+                        </div>
+
+                        {/* STICKY NOTE */}
+                        <div className="desk-sticky-note">
+                            <span>dear future me,</span>
+                            <strong>keep creating.</strong>
+                            <span className="sticky-heart">♡</span>
+                        </div>
+
+                        {/* PAPER CLIP */}
+                        <div className="desk-paperclip">
+                            <div />
+                        </div>
+
+                        {/* PENCIL */}
+                        <div className="desk-pencil">
+                            <div className="pencil-tip" />
+                            <div className="pencil-body" />
+                            <div className="pencil-end" />
+                        </div>
+
+                        {/* DECORATIVE FLOWERS */}
+                        <span className="desk-flower flower-one">✿</span>
+                        <span className="desk-flower flower-two">✳</span>
+
+                        {/* SMALL PAPER */}
+                        <div className="desk-mini-note">
+                            <span>one step at a time</span>
+                            <span>your story starts here.</span>
+                        </div>
 
                     </div>
 
-                    {/* FOOTER */}
-                    <p className="mt-9 text-center text-xs font-medium tracking-wide text-stone-400">
-                        A little space for big ideas.©Notely
+                    <div className="mt-7 flex items-center gap-3">
+                        <span className="h-px w-12 bg-[#c8ad7c]" />
+                        <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#9b896b]">
+                            A little space for big ideas.
+                        </p>
+                    </div>
+
+                </section>
+
+                {/* RIGHT: REGISTER FORM */}
+                <section className="login-form-area relative mx-auto w-full max-w-[440px]">
+
+                    {/* LAYERED PAPER */}
+                    <div className="login-form-shadow" />
+                    <div className="login-form-shadow-two" />
+
+                    <div className="login-form-paper relative">
+
+                        <div className="login-paper-tape" />
+
+                        {/* FORM HEADER */}
+                        <div className="flex items-center justify-between border-b border-[#e8deca] pb-5">
+                            <span className="text-[9px] font-extrabold uppercase tracking-[0.23em] text-[#a18a61]">
+                                NOTELY / NEW ACCOUNT
+                            </span>
+
+                            <span className="text-xl text-[#bd9148]">✳</span>
+                        </div>
+
+                        <div className="mb-8 mt-8">
+                            <p className="text-xs font-semibold text-[#a58a5b]">
+                                Let's get you started!
+                            </p>
+
+                            <h2 className="login-form-heading mt-3">
+                                Create
+                                <br />
+                                account<span>.</span>
+                            </h2>
+
+                            <p className="mt-4 text-sm leading-7 text-[#958a77]">
+                                A little place to keep everything that matters.
+                            </p>
+                        </div>
+
+                        {/* REGISTER FIELDS */}
+                        <div>
+
+                            <div className="mb-6">
+                                <label htmlFor="register-name" className="login-label">
+                                    Your Name
+                                </label>
+
+                                <input
+                                    id="register-name"
+                                    type="text"
+                                    value={user.name}
+                                    onChange={(e) => {
+                                        setUser({ ...user, name: e.target.value })
+                                    }}
+                                    placeholder="What should we call you?"
+                                    className="login-field"
+                                />
+                            </div>
+
+                            <div className="mb-6">
+                                <label htmlFor="register-email" className="login-label">
+                                    Email Address
+                                </label>
+
+                                <input
+                                    id="register-email"
+                                    type="email"
+                                    value={user.email}
+                                    onChange={(e) => {
+                                        setUser({ ...user, email: e.target.value })
+                                    }}
+                                    placeholder="Your email address"
+                                    className="login-field"
+                                />
+                            </div>
+
+                            <div className="mb-8">
+                                <label htmlFor="register-password" className="login-label">
+                                    Password
+                                </label>
+
+                                <input
+                                    id="register-password"
+                                    type="password"
+                                    value={user.password}
+                                    onChange={(e) => {
+                                        setUser({ ...user, password: e.target.value })
+                                    }}
+                                    placeholder="Create a password"
+                                    className="login-field"
+                                />
+                            </div>
+
+                            {/* ACTION BUTTON */}
+                            <button
+                                type="button"
+                                onClick={handleRegister}
+                                className="login-submit"
+                            >
+                                <span>Create my account</span>
+                                <span className="text-xl">↗</span>
+                            </button>
+
+                            <p className="mt-7 text-center text-sm text-[#938875]">
+                                Already a user?{" "}
+                                <Link
+                                    href="/login"
+                                    className="font-bold text-[#a17b3c] hover:text-[#765b2f] hover:underline"
+                                >
+                                    Login here
+                                </Link>
+                            </p>
+
+                        </div>
+
+                        {/* FOOTER */}
+                        <div className="mt-9 flex items-center justify-between border-t border-[#e8deca] pt-5">
+                            <span className="text-[9px] font-bold tracking-[0.15em] text-[#aaa08d]">
+                                YOUR THOUGHTS, YOUR SPACE
+                            </span>
+
+                            <span className="text-lg text-[#c49a58]">♡</span>
+                        </div>
+
+                    </div>
+
+                    <p className="mt-8 text-center text-[11px] tracking-wide text-[#a69a85]">
+                        A little space for big ideas. © Notely
                     </p>
 
-                </div>
+                </section>
 
             </div>
-        </>
+        </main>
     )
 }
